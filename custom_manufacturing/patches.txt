@@ -4,3 +4,4 @@
 
 [post_model_sync]
 # Patches added in this section will be executed after doctypes are migrated
+custom_manufacturing.patches.post_model_sync.convert_job_card_machine_time_to_float

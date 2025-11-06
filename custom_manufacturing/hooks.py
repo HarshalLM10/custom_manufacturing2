@@ -4,6 +4,16 @@ app_publisher = "Daks"
 app_description = "Manufacturing"
 app_email = "daksh@gmail.com"
 app_license = "unlicense"
+fixtures = [
+    {
+        "doctype": "Custom Field",
+        "filters": [["dt", "in", ["Work Order", "Job Card", "Workstation","Shift","Warehouse"]]],
+    },
+    # add more fixture groups (Property Setter, etc.) here if needed
+]
+
+
+
 
 # Apps
 # ------------------
@@ -137,13 +147,21 @@ app_license = "unlicense"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+    "Job Card": {
+        "before_save": "custom_manufacturing.doc_events.job_card.sync_weight_totals",
+        "on_submit": "custom_manufacturing.doc_events.job_card.on_submit",
+        "on_cancel": "custom_manufacturing.doc_events.job_card.on_cancel",
+    },
+    "Work Order": {
+        "on_submit": "custom_manufacturing.doc_events.work_order.on_submit",
+    },
+    "Machine Maintenance": {
+        "on_update": "custom_manufacturing.doc_events.machine_maintenance.on_update",
+        "on_cancel": "custom_manufacturing.doc_events.machine_maintenance.on_cancel",
+        "on_trash": "custom_manufacturing.doc_events.machine_maintenance.on_trash",
+    },
+}
 
 # Scheduled Tasks
 # ---------------
@@ -174,9 +192,6 @@ app_license = "unlicense"
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "custom_manufacturing.event.get_events"
-# }
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
@@ -241,4 +256,3 @@ app_license = "unlicense"
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
-
