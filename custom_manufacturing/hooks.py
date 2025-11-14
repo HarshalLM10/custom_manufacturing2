@@ -7,7 +7,7 @@ app_license = "unlicense"
 fixtures = [
     {
         "doctype": "Custom Field",
-        "filters": [["dt", "in", ["Work Order", "Job Card", "Workstation","Shift","Warehouse"]]],
+        "filters": [["dt", "in", ["Work Order", "Job Card", "Workstation", "Shift", "Warehouse"]]],
     },
     {
         "doctype": "Property Setter",
@@ -15,9 +15,10 @@ fixtures = [
     },
     {
         "doctype": "Webhook",
-        "filters": [["doc_type", "in", ["Work Order", "Job Card", "Workstation", "Shift", "Warehouse"]]],
+        "filters": [["webhook_doctype", "in", ["Work Order", "Job Card", "Workstation", "Shift", "Warehouse"]]],
     }
 ]
+
 
 
 

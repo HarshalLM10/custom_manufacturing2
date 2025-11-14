@@ -1,0 +1,130 @@
+[
+ {
+  "background_jobs_queue": null,
+  "condition": null,
+  "docstatus": 0,
+  "doctype": "Webhook",
+  "enable_security": 0,
+  "enabled": 1,
+  "is_dynamic_url": 0,
+  "meets_condition": "Yes",
+  "modified": "2025-11-10 15:11:10.115392",
+  "name": "Test",
+  "preview_document": null,
+  "preview_request_body": "Select a document to preview request data",
+  "request_method": "POST",
+  "request_structure": "JSON",
+  "request_url": "https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjYwNTY0MDYzMDA0MzA1MjY5NTUzNDUxMzQi_pc",
+  "timeout": 5,
+  "webhook_data": [],
+  "webhook_docevent": "on_update",
+  "webhook_doctype": "Job Card",
+  "webhook_headers": [
+   {
+    "key": "Content-Type",
+    "parent": "Test",
+    "parentfield": "webhook_headers",
+    "parenttype": "Webhook",
+    "value": "application/json"
+   }
+  ],
+  "webhook_json": "{\r\n  \"Employee Name\": \"{{ doc.employee[0].employee }}\",\r\n  \"Product\": \"{{ doc.production_item }}\",\r\n  \"Quantity to manufacture\": \"{{ doc.for_quantity }}\",\r\n  \"Quantity manufactured\": \"{{ doc.total_completed_qty }}\",\r\n  \"Employee mobile\": \"{{ frappe.db.get_value('Employee', doc.employee[0].employee, 'cell_number') }}\"\r\n}\r\n",
+  "webhook_secret": null
+ },
+ {
+  "background_jobs_queue": "",
+  "condition": null,
+  "docstatus": 0,
+  "doctype": "Webhook",
+  "enable_security": 0,
+  "enabled": 0,
+  "is_dynamic_url": 0,
+  "meets_condition": "Yes",
+  "modified": "2025-11-12 10:25:58.012115",
+  "name": "telegram",
+  "preview_document": null,
+  "preview_request_body": "Select a document to preview request data",
+  "request_method": "POST",
+  "request_structure": "JSON",
+  "request_url": "https://api.telegram.org/bot8526236755:AAGKnbTq-qS6GREBGHqCGgppjQ_oZ6qP_VQ/sendMessage",
+  "timeout": 5,
+  "webhook_data": [],
+  "webhook_docevent": "on_update",
+  "webhook_doctype": "Job Card",
+  "webhook_headers": [
+   {
+    "key": "Content-Type",
+    "parent": "telegram",
+    "parentfield": "webhook_headers",
+    "parenttype": "Webhook",
+    "value": "application/json"
+   }
+  ],
+  "webhook_json": "{\r\n  \"chat_id\": \"-5078874707\",\r\n  \"text\": \"📋 Job Card <b>{{ doc.name }}</b> updated.\\nWork Order: {{ doc.work_order }}\\nOperation: {{ doc.operation }}\\nStatus: {{ doc.status }}\\nSubmitted by: {{ frappe.session.user }}\",\r\n  \"parse_mode\": \"HTML\"\r\n}\r\n",
+  "webhook_secret": null
+ },
+ {
+  "background_jobs_queue": null,
+  "condition": "(doc.custom_worked_hours or 0) > (doc.custom_working_hours_before_replacement or 0)\n",
+  "docstatus": 0,
+  "doctype": "Webhook",
+  "enable_security": 0,
+  "enabled": 1,
+  "is_dynamic_url": 0,
+  "meets_condition": "Select a document to check if it meets conditions.",
+  "modified": "2025-11-12 16:08:11.550951",
+  "name": "Workstation Manitenaince",
+  "preview_document": null,
+  "preview_request_body": "Select a document to preview request data",
+  "request_method": "POST",
+  "request_structure": "JSON",
+  "request_url": "https://api.telegram.org/bot8526236755:AAGKnbTq-qS6GREBGHqCGgppjQ_oZ6qP_VQ/sendMessage",
+  "timeout": 5,
+  "webhook_data": [],
+  "webhook_docevent": "on_update",
+  "webhook_doctype": "Workstation",
+  "webhook_headers": [
+   {
+    "key": "Content-Type",
+    "parent": "Workstation Manitenaince",
+    "parentfield": "webhook_headers",
+    "parenttype": "Webhook",
+    "value": "application/json"
+   }
+  ],
+  "webhook_json": "{\r\n  \"chat_id\": \"-5078874707\",\r\n  \"text\": \"🏭 Workstation <b>{{ doc.name }}</b> BLADE CHANGE NEEDED.\\n\\nWorked Hours: {{ doc.custom_worked_hours }}\\nLimit: {{ doc.custom_working_hours_before_replacement }}\\n\\n📈 The working hours of this machine has exceeded the limit\",\r\n  \"parse_mode\": \"HTML\"\r\n}\r\n",
+  "webhook_secret": null
+ },
+ {
+  "background_jobs_queue": null,
+  "condition": "doc.custom_breakdown_type or doc.custom_breakdown_reason\n",
+  "docstatus": 0,
+  "doctype": "Webhook",
+  "enable_security": 0,
+  "enabled": 1,
+  "is_dynamic_url": 0,
+  "meets_condition": "Select a document to check if it meets conditions.",
+  "modified": "2025-11-12 16:25:30.642278",
+  "name": "Breakdown Notification",
+  "preview_document": null,
+  "preview_request_body": "Select a document to preview request data",
+  "request_method": "POST",
+  "request_structure": "JSON",
+  "request_url": "https://api.telegram.org/bot8526236755:AAGKnbTq-qS6GREBGHqCGgppjQ_oZ6qP_VQ/sendMessage",
+  "timeout": 5,
+  "webhook_data": [],
+  "webhook_docevent": "on_submit",
+  "webhook_doctype": "Job Card",
+  "webhook_headers": [
+   {
+    "key": "Content-Type",
+    "parent": "Breakdown Notification",
+    "parentfield": "webhook_headers",
+    "parenttype": "Webhook",
+    "value": "application/json"
+   }
+  ],
+  "webhook_json": "{\r\n  \"chat_id\": \"-5078874707\",\r\n  \"text\": \"🏭 Job Card <b>{{ doc.name }}</b> updated.\\nWork Order: {{ doc.work_order }}\\nOperation: {{ doc.operation }}\\nBreakDown Type: {{ doc.custom_breakdown_type }}\\nBreakdown Reason: {{ doc.custom_breakdown_reason }}\",\r\n  \"parse_mode\": \"HTML\"\r\n}\r\n",
+  "webhook_secret": null
+ }
+]
